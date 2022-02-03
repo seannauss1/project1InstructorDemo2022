@@ -4,10 +4,10 @@ import requests
 import secrets
 
 
-def get_top_250_data()->list[dict]:
+def get_top_250_data() -> list[dict]:
     api_query = f"https://imdb-api.com/en/API/Top250TVs/{secrets.secret_key}"
     response = requests.get(api_query)
-    if response.status_code != 200: # if we don't get an ok response we have trouble
+    if response.status_code != 200:  # if we don't get an ok response we have trouble
         print(f"Failed to get data, response code:{response.status_code} and error message: {response.reason} ")
         sys.exit(-1)
     # jsonresponse is a kinda useless dictionary, but the items element has what we need
@@ -16,7 +16,7 @@ def get_top_250_data()->list[dict]:
     return show_list
 
 
-def report_results(data_to_write:list[dict]):
+def report_results(data_to_write: list[dict]):
     with open("Output.txt", mode='a') as outputFile:  # open the output file for appending
         for show in data_to_write:
             print(show, file=outputFile)  # write each data item to file
@@ -24,7 +24,7 @@ def report_results(data_to_write:list[dict]):
             print("===================================================================", file=outputFile)
 
 
-def get_ratings(top_show_data:list[dict])->list[dict]:
+def get_ratings(top_show_data: list[dict]) -> list[dict]:
     results = []
     api_queries = []
     base_query = f"https://imdb-api.com/en/API/UserRatings/{secrets.secret_key}/"
