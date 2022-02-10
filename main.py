@@ -2,6 +2,7 @@ import sys
 
 import requests
 import secrets
+import dataBaseStuff
 
 
 def get_top_250_data() -> list[dict]:
@@ -49,10 +50,14 @@ def get_ratings(top_show_data: list[dict]) -> list[dict]:
 
 
 def main():
-    top_show_data = get_top_250_data()
-    ratings_data = get_ratings(top_show_data)
-    report_results(ratings_data)
-    report_results(top_show_data)
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    dataBaseStuff.create_top250_table(db_cursor)
+    dataBaseStuff.create_ratings_table(db_cursor)
+    dataBaseStuff.close_db(connection)
+    # top_show_data = get_top_250_data()
+    # ratings_data = get_ratings(top_show_data)
+    # report_results(ratings_data)
+    # report_results(top_show_data)
 
 
 if __name__ == '__main__':
