@@ -2,17 +2,12 @@ import api_data
 import dataBaseStuff
 
 
-
-
 def report_results(data_to_write: list):
     with open("Output.txt", mode='a') as outputFile:  # open the output file for appending
         for show in data_to_write:
             print(show, file=outputFile)  # write each data item to file
             print("\n", file=outputFile)
             print("===================================================================", file=outputFile)
-
-
-
 
 
 def main():
