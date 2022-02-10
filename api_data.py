@@ -13,7 +13,7 @@ def get_top_250_data() -> list[dict]:
     jsonresponse = response.json()
     show_list = jsonresponse["items"]
     if len(show_list) == 0:
-        print(jsonresponse['errorMessage'])
+        print(api_query)
     return show_list
 
 
