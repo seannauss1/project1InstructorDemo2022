@@ -60,7 +60,7 @@ def create_ratings_table(cursor: sqlite3.Cursor):
 
 
 def put_top_250_in_database(data_to_add: list[tuple], db_cursor: sqlite3.Cursor):
-    db_cursor.executemany("""INSERT INTO top_show_data(ttid, rank, title, fulltitle, year, image_url, crew, imdb_rating, 
+    db_cursor.executemany("""INSERT INTO top_show_data(ttid, rank, title, fulltitle, year, image_url, crew, imdb_rating,
     imdb_rating_count)
     VALUES(?,?,?,?,?,?,?,?,?)""", data_to_add)
 
@@ -73,7 +73,7 @@ def put_in_wheel_of_time(db_cursor: sqlite3.Cursor):
 
 
 def put_ratings_into_db(data_to_add: list[tuple], db_cursor: sqlite3.Cursor):
-    db_cursor.executemany("""INSERT INTO show_ratings(imdb_ttcode, title, fulltitle, year, total_rating, total_votes, 
+    db_cursor.executemany("""INSERT INTO show_ratings(imdb_ttcode, title, fulltitle, year, total_rating, total_votes,
     rating10_percent,
     rating10_votes, rating9_percent, rating9_votes, rating8_percent, rating8_votes, rating7_percent, rating7_votes,
     rating6_percent, rating6_votes, rating5_percent, rating5_votes, rating4_percent, rating4_votes, rating3_percent,
