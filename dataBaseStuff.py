@@ -54,3 +54,13 @@ def create_ratings_table(cursor:sqlite3.Cursor):
     FOREIGN KEY (imdb_ttcode) REFERENCES top_show_data (ttid)
     ON DELETE CASCADE ON UPDATE NO ACTION
     );''')
+
+def put_top_250_in_database(data_to_add:list[tuple], db_cursor:sqlite3.Cursor):
+    db_cursor.executemany("""INSERT INTO top_show_data(ttid, rank, title, fulltitle, year, image_url, crew, imdb_rating, imdb_rating_count)
+    VALUES(?,?,?,?,?,?,?,?,?)""", data_to_add)
+
+
+def put_in_wheel_of_time(db_cursor:sqlite3.Cursor):
+    """this is just a total kludge. I need a Wheel of time Entry for the foreign key to work, so I'm just adding it"""
+    db_cursor.execute("""INSERT INTO top_show_data(ttid, rank, title, fulltitle, year, image_url, crew, imdb_rating, imdb_rating_count)
+    VALUES('tt7462410',0,'The Wheel of Time','The Wheel of Time (TV Series 2021– )',2021,'','Rosamund Pike, Daniel Henney',7.2,85286)""")
