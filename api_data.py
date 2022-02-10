@@ -55,8 +55,35 @@ def prepare_top_250_data(top_show_data: list[dict]) -> list[tuple]:
     return data_for_database
 
 
-def _flatten_and_tuplize(ratings_entry):
-    pass
+def make_zero_values()->list[dict]:
+    '''this is a kludge to deal with the fact that one record has no ratings data'''
+    zero_rating = []
+    for rating_value in range(10, 0, -1):
+        rating = {}
+        rating['rating'] = rating_value
+        rating['percent'] = '0%'
+        rating['votes'] = 0
+        zero_rating.append(rating)
+    return zero_rating
+
+
+def _flatten_and_tuplize(ratings_entry: dict)->tuple:
+    db_ready_list = []
+    db_ready_list.append(ratings_entry['imDbId'])
+    db_ready_list.append(ratings_entry['title'])
+    db_ready_list.append(ratings_entry['fullTitle'])
+    db_ready_list.append(int(ratings_entry['year']))
+    db_ready_list.append(int(ratings_entry['totalRating']))
+    db_ready_list.append(int(ratings_entry['totalRatingVotes']))
+    if ratings_entry['ratings'] == []: # deal with #200 missing ratings
+        ratings_entry['ratings'] = make_zero_values()
+    for rating in ratings_entry['ratings']:
+        # the first data is a percent and we need to remove the % then conver it to a float
+        str_percent = rating['percent']
+        str_percent = str_percent[:-1] # slice with all but the last character
+        db_ready_list.append(float(str_percent))
+        db_ready_list.append(int(rating['votes']))
+    return tuple(db_ready_list)
 
 
 def prepare_ratings_for_db(ratings:list[dict])->list[tuple]:
@@ -64,3 +91,4 @@ def prepare_ratings_for_db(ratings:list[dict])->list[tuple]:
     for ratings_entry in ratings:
         db_redy_entry = _flatten_and_tuplize(ratings_entry)
         data_for_database.append(db_redy_entry)
+    return data_for_database

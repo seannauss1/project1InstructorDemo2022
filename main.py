@@ -23,6 +23,9 @@ def main():
     top_show_data_for_db = api_data.prepare_top_250_data(top_show_data)
     dataBaseStuff.put_top_250_in_database(top_show_data_for_db, db_cursor)
     dataBaseStuff.put_in_wheel_of_time(db_cursor)
+    ratings_data = api_data.get_ratings(top_show_data)
+    db_ready_ratings_data = api_data.prepare_ratings_for_db(ratings_data)
+    dataBaseStuff.put_ratings_into_db(db_ready_ratings_data, db_cursor)
     dataBaseStuff.close_db(connection)
 
 
