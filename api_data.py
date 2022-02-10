@@ -53,3 +53,14 @@ def prepare_top_250_data(top_show_data: list[dict]) -> list[tuple]:
         show_values = tuple(show_values)
         data_for_database.append(show_values)
     return data_for_database
+
+
+def _flatten_and_tuplize(ratings_entry):
+    pass
+
+
+def prepare_ratings_for_db(ratings:list[dict])->list[tuple]:
+    data_for_database = []
+    for ratings_entry in ratings:
+        db_redy_entry = _flatten_and_tuplize(ratings_entry)
+        data_for_database.append(db_redy_entry)
