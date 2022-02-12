@@ -15,45 +15,45 @@ def close_db(connection: sqlite3.Connection):
 def create_top250_table(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS top_show_data(
     ttid TEXT PRIMARY KEY,
-    rank INT DEFAULT 0,
+    rank INTEGER DEFAULT 0,
     title TEXT,
     fulltitle TEXT,
-    year INT,
+    year INTEGER,
     image_url TEXT,
     crew TEXT,
     imdb_rating REAL,
-    imdb_rating_count INT);''')
+    imdb_rating_count INTEGER);''')
 
 
 def create_ratings_table(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS show_ratings(
-    ratings_key INT PRIMARY_KEY,
+    ratings_key INTEGER PRIMARY KEY,
     imdb_ttcode TEXT NOT NULL,
     title TEXT,
     fulltitle TEXT,
-    year INT,
+    year INTEGER,
     total_rating INT DEFAULT 0,
-    total_votes INT,
+    total_votes INTEGER,
     rating10_percent REAL,
-    rating10_votes INT,
+    rating10_votes INTEGER,
     rating9_percent REAL,
-    rating9_votes INT,
+    rating9_votes INTEGER,
     rating8_percent REAL,
-    rating8_votes INT,
+    rating8_votes INTEGER,
     rating7_percent REAL,
-    rating7_votes INT,
+    rating7_votes INTEGER,
     rating6_percent REAL,
-    rating6_votes INT,
+    rating6_votes INTEGER,
     rating5_percent REAL,
-    rating5_votes INT,
+    rating5_votes INTEGER,
     rating4_percent REAL,
-    rating4_votes INT,
+    rating4_votes INTEGER,
     rating3_percent REAL,
-    rating3_votes INT,
+    rating3_votes INTEGER,
     rating2_percent REAL,
-    rating2_votes INT,
+    rating2_votes INTEGER,
     rating1_percent REAL,
-    rating1_votes INT,
+    rating1_votes INTEGER,
     FOREIGN KEY (imdb_ttcode) REFERENCES top_show_data (ttid)
     ON DELETE CASCADE ON UPDATE NO ACTION
     );''')

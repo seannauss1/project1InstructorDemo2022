@@ -12,8 +12,6 @@ def get_top_250_data() -> list[dict]:
     # jsonresponse is a kinda useless dictionary, but the items element has what we need
     jsonresponse = response.json()
     show_list = jsonresponse["items"]
-    if len(show_list) == 0:
-        print(api_query)
     return show_list
 
 
